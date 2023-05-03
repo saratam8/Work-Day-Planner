@@ -1,8 +1,42 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-var today = dayjs();
-$('#currentDay').text(today.format('dddd, MMMM D'));
+
+// var today = dayjs();
+// var todayAMPM = today.format('A');
+// console.log(todayAMPM);
+// $('#currentDay').text(today.format('dddd, MMMM D'));
+
+// lines below are for testing time of day
+var hour = 1;
+var todayAMPM = 'PM';
+
+// var hour = today.format('h');
+console.log(hour);
+console.log($('div'));
+
+var plannerHours = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6];
+var amPm = ['AM', 'AM', 'AM', 'PM', 'PM', 'PM', 'PM', 'PM', 'PM', 'PM',];
+
+for (var i = 0; i <plannerHours.length; i++){
+  console.log(plannerHours[i]);
+  console.log($(`div[id='hour-${plannerHours[i]}']`));
+  if(plannerHours[i] == hour && amPm[i] == todayAMPM){
+    var prev = i - 1;
+    $(`div[id='hour-${plannerHours[i]}']`).removeClass("future").addClass("present");
+    // $(`div[id='hour-${plannerHours[prev]}']`).removeClass("present").addClass("past");
+    console.log("variable i is " + i);
+    for(var j = 0; j < i; j++){
+      $(`div[id='hour-${plannerHours[j]}']`).removeClass("present").addClass("past");
+      $(`div[id='hour-${plannerHours[j]}']`).removeClass("future").addClass("past");
+    }
+    for(var k = i+1; k < plannerHours.length; k++){
+      $(`div[id='hour-${plannerHours[k]}']`).removeClass("present").addClass("future");
+      $(`div[id='hour-${plannerHours[k]}']`).removeClass("past").addClass("future");
+    }
+    // console.log($(`div[id='hour-${plannerHours[i]}']`));
+  }
+}
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
