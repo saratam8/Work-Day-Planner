@@ -20,6 +20,7 @@ for (var i = 0; i <plannerHours.length; i++){
   // console.log(plannerHours[i]);
   // console.log($(`div[id='hour-${plannerHours[i]}']`));
   if(compareHours[i] == hour){
+    console.log("here 1");
     var prev = i - 1;
     $(`div[id='hour-${plannerHours[i]}']`).removeClass("future").addClass("present");
     for(var j = 0; j < i; j++){
@@ -31,13 +32,15 @@ for (var i = 0; i <plannerHours.length; i++){
       $(`div[id='hour-${plannerHours[k]}']`).removeClass("past").addClass("future");
     }
   }
-  else if(0 <= hour < 9){
+  else if (0 <= hour && hour < 9){
+    console.log("here 2");
     for(var j = 0; j < plannerHours.length; j++){
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("present").addClass("future");
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("past").addClass("future");
     }
   }
-  else{
+  else if (18 < hour && hour < 24){
+    console.log("here 3");
     for(var j = 0; j < plannerHours.length; j++){
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("present").addClass("past");
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("future").addClass("past");
@@ -52,12 +55,6 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
