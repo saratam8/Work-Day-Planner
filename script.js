@@ -2,30 +2,26 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-// var today = dayjs();
-// var todayAMPM = today.format('A');
-// console.log(todayAMPM);
-// $('#currentDay').text(today.format('dddd, MMMM D'));
+var today = dayjs();
+$('#currentDay').text(today.format('dddd, MMMM D'));
 
 // lines below are for testing time of day
-var hour = 1;
-var todayAMPM = 'PM';
+// var hour = 17;
+// var todayAMPM = 'PM';
 
-// var hour = today.format('h');
+var hour = today.format('H');
 console.log(hour);
-console.log($('div'));
+// console.log($('div'));
 
 var plannerHours = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6];
-var amPm = ['AM', 'AM', 'AM', 'PM', 'PM', 'PM', 'PM', 'PM', 'PM', 'PM',];
+var compareHours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 for (var i = 0; i <plannerHours.length; i++){
-  console.log(plannerHours[i]);
-  console.log($(`div[id='hour-${plannerHours[i]}']`));
-  if(plannerHours[i] == hour && amPm[i] == todayAMPM){
+  // console.log(plannerHours[i]);
+  // console.log($(`div[id='hour-${plannerHours[i]}']`));
+  if(compareHours[i] == hour){
     var prev = i - 1;
     $(`div[id='hour-${plannerHours[i]}']`).removeClass("future").addClass("present");
-    // $(`div[id='hour-${plannerHours[prev]}']`).removeClass("present").addClass("past");
-    console.log("variable i is " + i);
     for(var j = 0; j < i; j++){
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("present").addClass("past");
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("future").addClass("past");
@@ -34,7 +30,18 @@ for (var i = 0; i <plannerHours.length; i++){
       $(`div[id='hour-${plannerHours[k]}']`).removeClass("present").addClass("future");
       $(`div[id='hour-${plannerHours[k]}']`).removeClass("past").addClass("future");
     }
-    // console.log($(`div[id='hour-${plannerHours[i]}']`));
+  }
+  else if(0 <= hour < 9){
+    for(var j = 0; j < plannerHours.length; j++){
+      $(`div[id='hour-${plannerHours[j]}']`).removeClass("present").addClass("future");
+      $(`div[id='hour-${plannerHours[j]}']`).removeClass("past").addClass("future");
+    }
+  }
+  else{
+    for(var j = 0; j < plannerHours.length; j++){
+      $(`div[id='hour-${plannerHours[j]}']`).removeClass("present").addClass("past");
+      $(`div[id='hour-${plannerHours[j]}']`).removeClass("future").addClass("past");
+    }
   }
 }
 
@@ -55,6 +62,4 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
 });
