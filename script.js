@@ -36,9 +36,17 @@ for (var i = 0; i <plannerHours.length; i++){
       $(`div[id='hour-${plannerHours[j]}']`).removeClass("future").addClass("past");
     }
   }
+  var key = "hour-" + plannerHours[i];
+  console.log("key is " + key);
+  var task = localStorage.getItem(key);
+  console.log(task);
+  if(task != null){
+    $(`div[id='hour-${plannerHours[i]}']`).children('textarea').text(task);
+  }
 }
 
-$(".saveBtn").on("click", function () {
+$(".saveBtn").on("click", function (event) {
+  event.preventDefault();
   // this references the object listening for the event. So in this case, this refers to the save button
   console.log($(this).parent().attr('id'));
   console.log($(this).siblings('textarea').val());
@@ -47,8 +55,4 @@ $(".saveBtn").on("click", function () {
   var taskContent = $(this).siblings('textarea').val();
 
   localStorage.setItem(taskKey, taskContent);
-
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
 });
